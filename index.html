@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>El Globo de la Taberna</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game" width="960" height="600"></canvas>
+
+  <!-- ============ MENÚ ============ -->
+  <div id="menu" class="screen">
+    <h1>El Globo de la Taberna</h1>
+    <p class="sub">Sala de mazmorra · No dejes que el globo toque el suelo</p>
+
+    <div class="panel">
+      <p><b>Solo con los pies.</b> Según subas de nivel se te desbloquean
+      rodilla, cabeza, pecho y mano. Cuidado con las antorchas: el globo explota.</p>
+    </div>
+
+    <div class="block">
+      <h2>Estado de embriaguez</h2>
+      <div class="options" id="drunkOpts">
+        <button class="opt selected" data-drunk="0">Sobrio</button>
+        <button class="opt" data-drunk="0.45">Alegre</button>
+        <button class="opt" data-drunk="0.9">Borracho</button>
+      </div>
+      <p class="hint" id="drunkHint">Control limpio. Para aventureros aburridos.</p>
+    </div>
+
+    <div class="block">
+      <h2>Controles</h2>
+      <div class="keys">
+        <span><b>&larr; &rarr;</b> moverte</span>
+        <span><b>&uarr; / ESPACIO</b> saltar</span>
+        <span><b>Z</b> pie</span>
+        <span><b>X</b> rodilla</span>
+        <span><b>C</b> cabeza</span>
+        <span><b>V</b> pecho</span>
+        <span><b>B</b> mano</span>
+        <span><b>P</b> pausa</span>
+      </div>
+    </div>
+
+    <button id="btnStart" class="big">Entrar en la sala</button>
+  </div>
+
+  <!-- ============ PAUSA ============ -->
+  <div id="pause" class="screen hidden">
+    <h1>Pausa</h1>
+    <p class="sub">La taberna espera.</p>
+    <button id="btnResume" class="big">Continuar</button>
+    <button id="btnQuit" class="small">Volver al menú</button>
+  </div>
+
+  <!-- ============ FIN ============ -->
+  <div id="over" class="screen hidden">
+    <h1>El globo ha caído</h1>
+    <p class="sub" id="overReason"></p>
+    <div class="panel score-panel">
+      <div><span id="ovScore">0</span><em>puntos</em></div>
+      <div><span id="ovLevel">1</span><em>nivel</em></div>
+      <div><span id="ovTouches">0</span><em>toques</em></div>
+      <div><span id="ovBest">0</span><em>récord</em></div>
+    </div>
+    <button id="btnRetry" class="big">Otra ronda</button>
+    <button id="btnMenu" class="small">Volver al menú</button>
+  </div>
+
+  <!-- ============ CONTROLES TÁCTILES ============ -->
+  <div id="touch" class="hidden">
+    <div class="tpad tleft">
+      <button class="tbtn" data-key="ArrowLeft">&larr;</button>
+      <button class="tbtn" data-key="ArrowRight">&rarr;</button>
+    </div>
+    <div class="tpad tright" id="touchParts">
+      <button class="tbtn jump" data-key="Space">SALTO</button>
+    </div>
+  </div>
+</div>
+
+<script src="src/config.js"></script>
+<script src="src/utils.js"></script>
+<script src="src/fx.js"></script>
+<script src="src/room.js"></script>
+<script src="src/balloon.js"></script>
+<script src="src/player.js"></script>
+<script src="src/drunks.js"></script>
+<script src="src/game.js"></script>
+</body>
+</html>
