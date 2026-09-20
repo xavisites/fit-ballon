@@ -1,0 +1,25 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.booproj
+*.pidb
+*.svd
+*.apk
+*.aab
+*.unitypackage
+sysinfo.txt
+
+# Sistema
+.DS_Store
+Thumbs.db
+node_modules/

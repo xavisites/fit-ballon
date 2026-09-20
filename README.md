@@ -1,5 +1,16 @@
 # El Globo de la Taberna 🎈🐉
 
+> **Dos versiones en este repositorio**
+> - **3D en Unity** → [`unity/`](unity/README.md) — la versión buena, con sala
+>   montada de un clic. Es la que se está llevando adelante.
+> - **Prototipo 2D en el navegador** (lo que hay debajo) — sirvió para ajustar
+>   el diseño: desbloqueo de partes del cuerpo, combos, d20 y borrachera.
+>   Se juega abriendo `index.html`.
+
+---
+
+## Prototipo 2D (navegador)
+
 Juego de navegador: estás en una sala de mazmorra (estilo D&D) llena de obstáculos
 y hay un globo que **no puede tocar el suelo**. La gracia es que al principio
 **solo puedes tocarlo con los pies**; según subes de nivel se te van desbloqueando
