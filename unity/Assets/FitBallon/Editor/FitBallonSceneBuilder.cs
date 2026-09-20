@@ -16,6 +16,8 @@ namespace FitBallon.EditorTools
         private const float RoomHalf = 9f;
         private const float WallHeight = 9f;
 
+        public const string ScenePath = "Assets/FitBallon/Scenes/Sala.unity";
+
         [MenuItem("Fit Ballon/Crear escena jugable", false, 0)]
         public static void CreateScene()
         {
@@ -26,7 +28,15 @@ namespace FitBallon.EditorTools
             {
                 return;
             }
+            CreateSceneHeadless();
+        }
 
+        /// <summary>
+        /// Igual que el menú pero sin preguntar nada: lo usan el arranque automático
+        /// y la línea de comandos (Unity -batchmode -executeMethod).
+        /// </summary>
+        public static void CreateSceneHeadless()
+        {
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             BuildRoom();
 
@@ -34,10 +44,9 @@ namespace FitBallon.EditorTools
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
             AssetDatabase.Refresh();
 
-            string path = dir + "/Sala.unity";
-            EditorSceneManager.SaveScene(scene, path);
+            EditorSceneManager.SaveScene(scene, ScenePath);
             AssetDatabase.Refresh();
-            Debug.Log("Fit Ballon: escena creada en " + path + ". Dale a Play.");
+            Debug.Log("Fit Ballon: escena creada en " + ScenePath + ". Dale a Play.");
         }
 
         [MenuItem("Fit Ballon/Añadir sala a la escena actual", false, 1)]

@@ -18,13 +18,17 @@ ni una línea de código.
 2. Cierra Unity Hub y abre el proyecto.
 3. Copia la carpeta **`unity/Assets/FitBallon`** de este repositorio dentro de la
    carpeta `Assets` de tu proyecto.
-4. Espera a que compile. En la barra de menús te sale un menú nuevo: **Fit Ballon**.
-5. **Fit Ballon ▸ Crear escena jugable** → acepta → se crea y se guarda
-   `Assets/FitBallon/Scenes/Sala.unity` con la sala entera montada.
-6. Dale a **Play**. Sale el menú: elige Sobrio / Alegre / Borracho.
+4. Espera a que compile. **La sala se monta sola**: al terminar de compilar
+   tienes delante la escena `Assets/FitBallon/Scenes/Sala.unity` ya construida.
+5. Dale a **Play**. Sale el menú: elige Sobrio / Alegre / Borracho.
 
-Si prefieres no crear una escena nueva, abre la tuya y usa
+Si la escena ya existe, el montaje automático no toca nada. Para rehacerla,
+bórrala y vuelve a abrir el proyecto, o usa el menú **Fit Ballon ▸ Crear escena
+jugable**. Para añadir la sala a una escena tuya:
 **Fit Ballon ▸ Añadir sala a la escena actual**.
+
+¿Prefieres la terminal? Se puede montar y compilar sin abrir el editor:
+ver [TERMINAL.md](TERMINAL.md).
 
 ## Controles
 
