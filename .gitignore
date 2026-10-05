@@ -23,3 +23,14 @@ sysinfo.txt
 .DS_Store
 Thumbs.db
 node_modules/
+
+# Suena a Mueble: lo que Unity genera en cada ordenador (no se sube)
+suena-a-mueble/Packages/
+suena-a-mueble/ProjectSettings/*
+!suena-a-mueble/ProjectSettings/ProjectVersion.txt
+suena-a-mueble/Assets/**/*.meta
+suena-a-mueble/Assets/*.meta
+suena-a-mueble/Assets/SuenaAMueble/Escenas/
+suena-a-mueble/.vs/
+suena-a-mueble/.idea/
+suena-a-mueble/.vscode/

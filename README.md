@@ -1,5 +1,7 @@
 # El Globo de la Taberna 🎈🐉
 
+> **Nuevo:** el prototipo de *Suena a Mueble* está en [`suena-a-mueble/`](suena-a-mueble/README.md).
+
 > **Dos versiones en este repositorio**
 > - **3D en Unity** → [`unity/`](unity/README.md) — la versión buena, con sala
 >   montada de un clic. Es la que se está llevando adelante.

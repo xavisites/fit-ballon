@@ -1,0 +1,14 @@
+Sonidos de verdad de los objetos
+================================
+
+Mete aquí un archivo de audio por objeto (wav, ogg o mp3) con EXACTAMENTE este nombre:
+
+  reloj  nevera  grifo  pato  despertador  gato
+  microondas  lavadora  telefono  olla  aspiradora  perro  sarten
+  gallo  motosierra  vater  coche  cortacesped  licuadora
+
+Ejemplo: nevera.wav
+
+- Entre 1 y 4 segundos, sin silencio largo al principio ni al final.
+- En el inspector del audio: Load Type = "Decompress On Load" (es lo que viene por defecto).
+- Si un objeto no tiene archivo, el juego usa un sonido provisional hecho por código.
