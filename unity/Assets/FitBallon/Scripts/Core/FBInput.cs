@@ -33,6 +33,8 @@ namespace FitBallon
                 case KeyCode.DownArrow: return Key.DownArrow;
                 case KeyCode.LeftArrow: return Key.LeftArrow;
                 case KeyCode.RightArrow: return Key.RightArrow;
+                case KeyCode.LeftShift: return Key.LeftShift;
+                case KeyCode.RightShift: return Key.RightShift;
                 default: return Key.None;
             }
         }
@@ -81,5 +83,8 @@ namespace FitBallon
         }
 
         public static bool JumpPressed() { return Pressed(KeyCode.Space); }
+
+        /// <summary>MAYÚS para correr.</summary>
+        public static bool RunHeld() { return Held(KeyCode.LeftShift) || Held(KeyCode.RightShift); }
     }
 }

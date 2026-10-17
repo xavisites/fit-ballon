@@ -46,7 +46,9 @@ namespace FitBallon
         public const float BalloonPenaltyAccel = 1.2f;  // castigo de la pifia del d20
         public const float FloorDeathY = 0.75f;         // altura a la que se considera "tocó el suelo"
 
-        public const float PlayerSpeed = 6.2f;
+        public const float PlayerWalkSpeed = 4.2f;   // andando
+        public const float PlayerRunSpeed = 7.2f;    // corriendo (MAYÚS)
+        public const float PlayerSpeed = PlayerWalkSpeed;
         public const float PlayerAccel = 28f;
         public const float PlayerJump = 6.2f;
         public const float PlayerGravity = -20f;

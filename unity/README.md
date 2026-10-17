@@ -34,7 +34,8 @@ ver [TERMINAL.md](TERMINAL.md).
 
 | Tecla | Acción |
 |---|---|
-| `W A S D` o flechas | moverte por la sala |
+| `W A S D` o flechas | andar por la sala |
+| `MAYÚS` (mantener) | **correr** |
 | `ESPACIO` | saltar |
 | `Z` | **pie** — desde el nivel 1 |
 | `X` | **rodilla** — nivel 2 |
@@ -74,9 +75,13 @@ Scripts/Gameplay/DrunkNpc.cs            los parroquianos
 Scripts/Gameplay/HazardZone.cs          el fuego
 Scripts/Gameplay/RuneBonus.cs           las runas
 Scripts/Gameplay/SwingingObstacle.cs    el candelabro
+Scripts/Gameplay/PlayerAnimator.cs      traduce el movimiento a parámetros del Animator
 Scripts/Gameplay/RoomCamera.cs          cámara de sala
 Scripts/UI/HudOnGui.cs                  HUD provisional (IMGUI, cero configuración)
 Editor/FitBallonSceneBuilder.cs         el menú que monta la sala
+Editor/FitBallonAnimatorSetup.cs        monta el Animator Controller del personaje
+Editor/FitBallonAutoSetup.cs            construye la sala sola al abrir el proyecto
+Editor/FitBallonCli.cs                  entradas para usar Unity desde la terminal
 ```
 
 El globo **no usa la gravedad de Unity**: cae con su propia aceleración y su
@@ -106,6 +111,44 @@ Exporta el `.blend` a `.fbx` o `.glb`, mételo como hijo de `Globo`, quita el
 `MeshRenderer` de la esfera y deja el `SphereCollider` y el
 `BalloonController` donde están.
 
+## Animaciones del personaje
+
+Hay un montador automático. Con el personaje ya metido en la escena:
+
+1. Selecciónalo (en la jerarquía, o su `.fbx` en la ventana Project).
+2. **Fit Ballon ▸ Preparar animaciones del personaje**.
+
+Lo que hace: busca sus animaciones, crea un Animator Controller en
+`Assets/FitBallon/Animation/Personaje.controller` con una mezcla
+**quieto → andar → correr**, lo engancha al personaje y le añade el componente
+`PlayerAnimator`, que es el que traduce lo que haces a la animación.
+
+Las reconoce por el nombre: le vale `idle`/`reposo`, `walk`/`andar`/`caminar`,
+`run`/`correr`. Si no encuentra la de correr, **usa la de andar acelerada ×1,6**
+y te avisa: se nota el cambio, pero no es lo mismo que una carrera de verdad.
+
+### Conseguir una animación de correr
+
+Tu `Personaje.blend` solo trae `Anim_Idle` y `Anim_Walk`. Para tener carrera:
+
+- **Mixamo** (gratis, de Adobe): subes tu personaje en FBX, eliges *Running*,
+  lo descargas con *Skin: Without Skin* y lo sueltas en `Assets`. El montador
+  lo encuentra solo la próxima vez.
+- **KayKit – Character Animations** (gratis, CC0): trae idle, walk, run y más.
+- **En Blender**: duplica la acción de andar, acórtala y sube la cadencia.
+
+### Al exportar de Blender
+
+En el diálogo de exportar FBX, apartado **Bake Animation**, marca
+**NLA Strips** y **All Actions**. Si no, se exporta una sola animación o
+ninguna, y el montador no encuentra nada.
+
+### Si el personaje se va solo por la sala
+
+Es el *root motion*: la animación mueve al personaje por su cuenta y choca con
+el movimiento del juego. `PlayerAnimator` lo desactiva al arrancar, pero si lo
+ves raro, en el `Animator` del personaje desmarca **Apply Root Motion**.
+
 ### Tu personaje (`Personaje.blend`)
 
 Tu rig es **Rigify**, y Rigify mete un montón de huesos de control que Unity no
@@ -132,7 +175,9 @@ debe ver:
 
 ## Lo que falta (por orden de lo que más se nota)
 
-1. **Animaciones** de golpeo: ahora el personaje pega sin mover la pierna.
+1. **Animación de golpeo**: el parámetro `Kick` del Animator ya se dispara,
+   pero falta el clip. En cuanto tengas uno, añádelo como estado y conéctalo
+   con el trigger `Kick`.
 2. **Sonido**: rebote, fuego, hipidos, ambiente de taberna.
 3. **HUD de verdad**: sustituir `HudOnGui` por un Canvas con TextMeshPro.
 4. **Partículas**: chispas al golpear y explosión del globo.

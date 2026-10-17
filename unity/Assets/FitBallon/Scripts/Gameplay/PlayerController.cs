@@ -37,6 +37,30 @@ namespace FitBallon
         public bool IsStunned { get { return _stun > 0f; } }
         public BodyPartData CurrentAction { get { return _currentAction; } }
 
+        // --- Datos que lee PlayerAnimator para mover al personaje ---
+        /// <summary>Velocidad en el plano, en m/s.</summary>
+        public float PlanarSpeed { get { return _planarVel.magnitude; } }
+        /// <summary>0 parado · 0,5 andando · 1 corriendo. Es lo que se le pasa al Animator.</summary>
+        public float LocomotionBlend
+        {
+            get
+            {
+                float s = PlanarSpeed;
+                if (s < 0.15f) return 0f;
+                if (s <= FBConfig.PlayerWalkSpeed)
+                {
+                    return Mathf.Lerp(0f, 0.5f, s / FBConfig.PlayerWalkSpeed);
+                }
+                float t = (s - FBConfig.PlayerWalkSpeed) /
+                          Mathf.Max(0.01f, FBConfig.PlayerRunSpeed - FBConfig.PlayerWalkSpeed);
+                return Mathf.Lerp(0.5f, 1f, Mathf.Clamp01(t));
+            }
+        }
+        public bool IsRunning { get; private set; }
+        public bool IsGrounded { get { return _cc != null && _cc.isGrounded; } }
+        /// <summary>Salta cada vez que empieza un golpeo, para disparar su animación.</summary>
+        public System.Action<BodyPartData> OnActionStarted;
+
         private void Awake()
         {
             _cc = GetComponent<CharacterController>();
@@ -84,6 +108,7 @@ namespace FitBallon
             _actionTime = 0f;
             _actionUsed = false;
             _cooldowns[part.Id] = part.Cooldown + part.Duration;
+            if (OnActionStarted != null) OnActionStarted(part);
             return true;
         }
 
@@ -231,6 +256,7 @@ namespace FitBallon
                 }
                 wish = (fwd * v + right * h);
                 if (wish.sqrMagnitude > 1f) wish.Normalize();
+                IsRunning = FBInput.RunHeld() && wish.sqrMagnitude > 0.05f;
 
                 if (_cc.isGrounded && FBInput.JumpPressed()) _velocity.y = FBConfig.PlayerJump;
             }
@@ -241,7 +267,9 @@ namespace FitBallon
                 wish += new Vector3(Mathf.Sin(_swayPhase * 1.3f), 0f, Mathf.Cos(_swayPhase * 0.9f)) * drunk * 0.45f;
             }
 
-            Vector3 target = wish * FBConfig.PlayerSpeed;
+            if (_stun > 0f || !playing) IsRunning = false;
+            float speed = IsRunning ? FBConfig.PlayerRunSpeed : FBConfig.PlayerWalkSpeed;
+            Vector3 target = wish * speed;
             _planarVel = Vector3.MoveTowards(_planarVel, target, FBConfig.PlayerAccel * dt);
 
             if (_cc.isGrounded && _velocity.y < 0f) _velocity.y = -2f;
@@ -289,6 +317,7 @@ namespace FitBallon
             _invertTimer = 0f;
             _planarVel = Vector3.zero;
             _velocity = Vector3.zero;
+            IsRunning = false;
             drunk = drunkLevel;
             _cc.enabled = false;
             transform.position = pos;
